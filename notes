@@ -1,0 +1,108 @@
+Documentation: https://flask.palletsprojects.com/en/2.1.x/quickstart/
+
+Here is the minimal Flask application code to get started:
+from flask import Flask
+app = Flask(__name__)
+
+
+@app.route("/")
+def hello_world():
+    return "Hello, World!"
+    
+    
+Once I run this, nothing happens immediately but if I go to the terminal and enter this information it will:
+$env:FLASK_APP = "hello"
+flask run
+
+First, it sets the environment veriable FLASK_APP equal to hello (assuming my file name is hello.py), telling the machine that this is a flask application
+then "flask run" tells it to run
+it will then spit out an ip address which is where my flask application sits (it will continue running until I stop it with CTRL + C, you can only have one running at once)
+
+
+WINDOWS POWERSHELL
+Powershell prompts can be used to do things quickly around my computer
+
+pwd = show me which path directory I'm in currently (C:\Users\Bryant for example)
+ls = show me a list of all the folders in this directory
+cd = change directory (e.g. cd Desktop will change the path to the desktop
+mkdir = make directory or create folder (e.g. mkdir Test will create a folder in that directory)
+type > main.py = create a python file inside of what path I was in (test folder on my desktop in this example)
+rm main.py = remove the file main.py from the folder I'm in
+cd .. = move the file path I'm in one step up (could also type out the full path name but that's slower)
+Remove-Item -Recurse -Force C:\Users\Bryant\Desktop\Test = completely remove the item specified (our test folder in this case)
+BE EXTREMELY CAREFUL WITH THE REMOVE SO THAT I DON'T DELETE MY WHOLE HARD DRIVE
+
+DECORATORS
+## ********Day 54 Start**********
+## Functions can have inputs/functionality/output
+def add(n1, n2):
+    return n1 + n2
+
+def subtract(n1, n2):
+    return n1 - n2
+
+def multiply(n1, n2):
+    return n1 * n2
+
+def divide(n1, n2):
+    return n1 / n2
+
+##Functions are first-class objects, can be passed around as arguments e.g. int/string/float etc.
+
+def calculate(calc_function, n1, n2):
+    return calc_function(n1, n2)
+
+result = calculate(add, 2, 3)
+print(result)
+
+##Functions can be nested in other functions
+
+def outer_function():
+    print("I'm outer")
+
+    def nested_function():
+        print("I'm inner")
+
+    nested_function()
+
+outer_function()
+
+## Functions can be returned from other functions
+def outer_function():
+    print("I'm outer")
+
+    def nested_function():
+        print("I'm inner")
+
+    return nested_function
+
+inner_function = outer_function()
+inner_function
+
+
+## Simple Python Decorator Functions
+import time
+
+def delay_decorator(function):
+    def wrapper_function():
+        time.sleep(2)
+        #Do something before
+        function()
+        function()
+        #Do something after
+    return wrapper_function
+
+@delay_decorator
+def say_hello():
+    print("Hello")
+
+#With the @ syntactic sugar
+@delay_decorator
+def say_bye():
+    print("Bye")
+
+#Without the @ syntactic sugar
+def say_greeting():
+    print("How are you?")
+decorated_function = delay_decorator(say_greeting)
+decorated_function()
