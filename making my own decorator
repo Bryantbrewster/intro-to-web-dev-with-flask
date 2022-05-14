@@ -1,0 +1,32 @@
+import time
+current_time = time.time()
+# print(current_time)
+
+def speed_calc_decorator(function):
+    def speed_test():
+        start_time = time.time()
+        function()
+        end_time = time.time()
+        run_time = end_time - start_time
+        print(f"{function.__name__} run speed: {run_time}s")
+    return speed_test
+    
+@speed_calc_decorator
+def fast_function():
+    for i in range(10000000):
+        i * i
+        
+fast_function()
+
+@speed_calc_decorator
+def slow_function():
+    for i in range(100000000):
+        i * i
+
+slow_function()
+
+Explanation:
+-the purpose of this decorator is to time how long it takes to run the function
+-from a high level the decorator function marks down the start time, then tells the function to run (whatever function it is attached to) and then once that function is doing running it marks down the time again. It then finds the difference between these
+two times and marks that down as the "run_time" and prints out the run_time for the function (using a dynamic function.__name__ to grab the name of the function each time). 
+-remember, with function and "return", the return basically tells the function to substitute wherever the function is with the value that is returned. So in this case, when it returns speed_test it substitutes the print value and that is the output.
